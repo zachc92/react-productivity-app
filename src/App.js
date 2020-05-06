@@ -25,7 +25,7 @@ class App extends React.Component {
         this.setState(prevState => {
             let newTodo = prevState.todo
             prevState.todos.push(newTodo);
-            return { todos: prevState.todos }
+            return { todos: prevState.todos, todo: { task: '' } }
         })
     }
 
@@ -53,21 +53,30 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className="container">
-                <Timer />
-                <div>
-                    {this.state.todos.map((el) => <li key={el.id} data-key={el.id}>{el.task}<button onClick={this.onRemove}>Remove Task</button></li>)}
+        <div>
+            <div className="ui container">
+                <div className="ui segment">
+                    <Timer />
                 </div>
-                <form onSubmit={this.handleSubmit}>
-                    <input 
-                        placeholder="Enter a todo" 
-                        onChange={this.onInputChange}
+                    <form onSubmit={this.handleSubmit}>
+                    <div className="ui action input">
+                        <input 
+                            placeholder="Enter a todo" 
+                            value={this.state.todo.task}
+                            onChange={this.onInputChange}
                         />
-                    <button>Submit Form</button>
-                </form>
+                        <button className="ui button">Submit</button>
+                    </div>    
+                    </form>
+                {this.state.todos.map((el) => {
+                    return (
+                        <div className="ui segment"><p key={el.id} data-key={el.id}>{el.task}<button onClick={this.onRemove} className="ui inverted red button"><i class="trash icon"></i></button></p></div>
+                    )
+                    })}
             </div>
+        </div>
         )
     }
 }
 
-export default App
+export default App;
