@@ -4,7 +4,7 @@ const Timer = () => {
    // pomodoro timer functionality in here
 
     return (
-       <div>Timer</div>
+       <div><h2 className="ui huge header">Timer</h2></div>
     )
 }
 

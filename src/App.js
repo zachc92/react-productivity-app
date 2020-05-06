@@ -11,12 +11,14 @@ class App extends React.Component {
             todo: {
                 task: '',
                 id: ''
-            }
+            },
+            completed: 0
         }
     
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.onInputChange = this.onInputChange.bind(this)
-        this.onRemove = this.onRemove.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.onInputChange = this.onInputChange.bind(this);
+        this.onComplete = this.onComplete.bind(this);
+        this.onDelete = this.onDelete.bind(this);
     }
 
     handleSubmit(e) {
@@ -40,7 +42,18 @@ class App extends React.Component {
         })
     }
 
-    onRemove(e) {
+    onComplete(e) {
+        let id = e.target.parentElement.getAttribute("data-key");
+        this.setState(prevState => {
+            // console.log(prevState.todos[0].id);
+            let newState = prevState.todos.filter((el) => {
+                return el.id !== id
+            })
+            return { todos: newState, completed: this.state.completed + 1 }
+        })
+    }
+
+    onDelete(e) {
         let id = e.target.parentElement.getAttribute("data-key");
         this.setState(prevState => {
             // console.log(prevState.todos[0].id);
@@ -54,23 +67,42 @@ class App extends React.Component {
     render() {
         return (
         <div>
-            <div className="ui container">
+            <div className="ui container" id="main-body">
                 <div className="ui segment">
                     <Timer />
                 </div>
-                    <form onSubmit={this.handleSubmit}>
-                    <div className="ui action input">
-                        <input 
-                            placeholder="Enter a todo" 
-                            value={this.state.todo.task}
-                            onChange={this.onInputChange}
-                        />
-                        <button className="ui button">Submit</button>
-                    </div>    
-                    </form>
+                    <div className="ui right aligned grid">
+                        <div className="left floated right aligned seven wide column">
+                            <div >
+                                <form onSubmit={this.handleSubmit}>
+                                <div className="ui action input">
+                                    <input 
+                                        placeholder="Enter a todo" 
+                                        value={this.state.todo.task}
+                                        onChange={this.onInputChange}
+                                    />
+                                    <button className="ui button">Submit</button>
+                                </div>    
+                                </form>
+                            </div>
+                        </div>
+                        <div className="right floated left aligned seven wide column">
+                            <div className="ui segment" id="completed-tasks">
+                                Completed Tasks: {this.state.completed}
+                            </div>
+                        </div>
+                    </div>
                 {this.state.todos.map((el) => {
                     return (
-                        <div className="ui segment"><p key={el.id} data-key={el.id}>{el.task}<button onClick={this.onRemove} className="ui inverted red button"><i class="trash icon"></i></button></p></div>
+                        <div className="ui segment row">
+                            <p key={el.id} data-key={el.id}>{el.task}</p>
+                            <button data-key={el.id} onClick={this.onComplete} className="circular ui icon inverted green button">
+                                <i class="check icon"></i>
+                            </button>
+                            <button data-key={el.id} onClick={this.onDelete} className="circular ui icon inverted red button">
+                                <i class="trash icon"></i>
+                            </button>
+                        </div>
                     )
                     })}
             </div>
@@ -80,3 +112,5 @@ class App extends React.Component {
 }
 
 export default App;
+
+// <div className="ui segment"><p key={el.id} data-key={el.id}>{el.task}<button onClick={this.onRemove} className="ui inverted red button"><i class="trash icon"></i></button></p></div>
