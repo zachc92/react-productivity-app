@@ -94,14 +94,25 @@ class App extends React.Component {
                     </div>
                 {this.state.todos.map((el) => {
                     return (
-                        <div className="ui segment row">
-                            <p key={el.id} data-key={el.id}>{el.task}</p>
-                            <button data-key={el.id} onClick={this.onComplete} className="circular ui icon inverted green button">
-                                <i class="check icon"></i>
-                            </button>
-                            <button data-key={el.id} onClick={this.onDelete} className="circular ui icon inverted red button">
-                                <i class="trash icon"></i>
-                            </button>
+                        <div className="ui segment row todo-containers">
+                            <p 
+                                key={el.id} 
+                                data-key={el.id}
+                            >
+                                {el.task}
+                            </p>
+                            <span className="button-container">
+                                <button 
+                                    data-key={el.id} 
+                                    onClick={this.onComplete} 
+                                    className="circular ui icon inverted green button"
+                                >
+                                    <i class="check icon"></i>
+                                </button>
+                                <button data-key={el.id} onClick={this.onDelete} className="circular ui icon inverted red button">
+                                    <i class="trash icon"></i>
+                                </button>
+                            </span>
                         </div>
                     )
                     })}

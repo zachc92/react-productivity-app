@@ -10,3 +10,11 @@ body {
 #main-body {
     margin-top: 3rem;
 }
+
+
+
+.todo-containers {
+    display: flex !important;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
