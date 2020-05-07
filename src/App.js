@@ -4,24 +4,16 @@ import './styles/styles.scss';
 import { v4 as uuidv4 } from 'uuid';
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            todos: [],
-            todo: {
-                task: '',
-                id: ''
-            },
-            completed: 0
-        }
-    
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.onInputChange = this.onInputChange.bind(this);
-        this.onComplete = this.onComplete.bind(this);
-        this.onDelete = this.onDelete.bind(this);
+    state = {
+        todos: [],
+        todo: {
+            task: '',
+            id: ''
+        },
+        completed: 0
     }
 
-    handleSubmit(e) {
+    handleSubmit = e => {
         e.preventDefault();
 
         this.setState(prevState => {
@@ -31,7 +23,7 @@ class App extends React.Component {
         })
     }
 
-    onInputChange(e) {
+    onInputChange = e => {
         const newTask = e.target.value;
         const newId = uuidv4();
         this.setState(prevState => {
@@ -42,8 +34,8 @@ class App extends React.Component {
         })
     }
 
-    onComplete(e) {
-        let id = e.target.parentElement.getAttribute("data-key");
+    onComplete = e => {
+        let id = e.target.getAttribute("data-key");
         this.setState(prevState => {
             // console.log(prevState.todos[0].id);
             let newState = prevState.todos.filter((el) => {
@@ -53,7 +45,7 @@ class App extends React.Component {
         })
     }
 
-    onDelete(e) {
+    onDelete = e => {
         let id = e.target.parentElement.getAttribute("data-key");
         this.setState(prevState => {
             // console.log(prevState.todos[0].id);
