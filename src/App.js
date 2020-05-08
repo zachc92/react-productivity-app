@@ -2,6 +2,7 @@ import React from 'react';
 import Timer from './Components/Timer'
 import './styles/styles.scss';
 import { v4 as uuidv4 } from 'uuid';
+import TodoItems from './Components/TodoItems';
 
 class App extends React.Component {
     state = {
@@ -35,9 +36,8 @@ class App extends React.Component {
     }
 
     onComplete = e => {
-        let id = e.target.getAttribute("data-key");
+        let id = e.target.parentElement.getAttribute("data-key");
         this.setState(prevState => {
-            // console.log(prevState.todos[0].id);
             let newState = prevState.todos.filter((el) => {
                 return el.id !== id
             })
@@ -48,7 +48,6 @@ class App extends React.Component {
     onDelete = e => {
         let id = e.target.parentElement.getAttribute("data-key");
         this.setState(prevState => {
-            // console.log(prevState.todos[0].id);
             let newState = prevState.todos.filter((el) => {
                 return el.id !== id
             })
@@ -63,7 +62,7 @@ class App extends React.Component {
                 <div className="ui segment">
                     <Timer />
                 </div>
-                    <div className="ui right aligned grid">
+                    <div className="ui right aligned grid" id="form">
                         <div className="left floated right aligned seven wide column">
                             <div >
                                 <form onSubmit={this.handleSubmit}>
@@ -84,30 +83,11 @@ class App extends React.Component {
                             </div>
                         </div>
                     </div>
-                {this.state.todos.map((el) => {
-                    return (
-                        <div className="ui segment row todo-containers">
-                            <p 
-                                key={el.id} 
-                                data-key={el.id}
-                            >
-                                {el.task}
-                            </p>
-                            <span className="button-container">
-                                <button 
-                                    data-key={el.id} 
-                                    onClick={this.onComplete} 
-                                    className="circular ui icon inverted green button"
-                                >
-                                    <i class="check icon"></i>
-                                </button>
-                                <button data-key={el.id} onClick={this.onDelete} className="circular ui icon inverted red button">
-                                    <i class="trash icon"></i>
-                                </button>
-                            </span>
-                        </div>
-                    )
-                    })}
+                <TodoItems 
+                    todos={this.state.todos}
+                    onComplete={this.onComplete}
+                    onDelete={this.onDelete}
+                />
             </div>
         </div>
         )
