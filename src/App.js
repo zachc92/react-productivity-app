@@ -11,7 +11,8 @@ class App extends React.Component {
             task: '',
             id: ''
         },
-        completed: 0
+        completed: 0,
+        timer: 5 // time in seconds
     }
 
     handleSubmit = e => {
@@ -55,12 +56,25 @@ class App extends React.Component {
         })
     }
 
+    updateTime = () => {
+        if(this.state.timer === 0) {
+            console.log('at 0')
+            return 0;
+        }
+        this.setState(() => {
+            return { timer: this.state.timer - 1 }
+        })
+    }
+
     render() {
         return (
         <div>
             <div className="ui container" id="main-body">
                 <div className="ui segment">
-                    <Timer />
+                    <Timer 
+                        timer={this.state.timer}
+                        updateTime={this.updateTime}
+                    />
                 </div>
                     <div className="ui right aligned grid" id="form">
                         <div className="left floated right aligned seven wide column">
@@ -95,5 +109,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-// <div className="ui segment"><p key={el.id} data-key={el.id}>{el.task}<button onClick={this.onRemove} className="ui inverted red button"><i class="trash icon"></i></button></p></div>

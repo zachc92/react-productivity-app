@@ -6,7 +6,7 @@ const TodoItem = props => {
         <div>
             {props.todos.map((el) => {
                 return (
-                    <div className="ui segment row todo-containers">
+                    <div key={el.id} className="ui segment row todo-containers">
                         <p 
                             key={el.id} 
                             data-key={el.id}
@@ -19,14 +19,14 @@ const TodoItem = props => {
                                 onClick={props.onComplete} 
                                 className="circular ui icon inverted green button"
                             >
-                                <i class="check icon"></i>
+                                <i className="check icon"></i>
                             </button>
                             <button 
                                 data-key={el.id} 
                                 onClick={props.onDelete} 
                                 className="circular ui icon inverted red button"
                             >
-                                <i class="trash icon"></i>
+                                <i className="trash icon"></i>
                             </button>
                         </span>
                     </div>
