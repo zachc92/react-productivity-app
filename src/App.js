@@ -12,7 +12,8 @@ class App extends React.Component {
             id: ''
         },
         completed: 0,
-        timer: 5 // time in seconds
+        timer: 10,  // time in seconds
+        intervalId: ''
     }
 
     handleSubmit = e => {
@@ -66,6 +67,23 @@ class App extends React.Component {
         })
     }
 
+    onReset = () => {
+        this.setState(({ timer: 5 }))
+    }
+
+    beginTimer = () => {
+        if(!this.state.intervalId) {
+            let intervalId = setInterval(() => this.updateTime(), 1000);
+            this.setState(({ intervalId }));
+        }
+        
+    }
+
+     endTimer = () => {
+        clearInterval(this.state.intervalId);
+        this.setState(({ intervalId: '' }));
+     }
+
     render() {
         return (
         <div>
@@ -74,6 +92,9 @@ class App extends React.Component {
                     <Timer 
                         timer={this.state.timer}
                         updateTime={this.updateTime}
+                        onReset={this.onReset}
+                        beginTimer={this.beginTimer}
+                        endTimer={this.endTimer}
                     />
                 </div>
                     <div className="ui right aligned grid" id="form">
