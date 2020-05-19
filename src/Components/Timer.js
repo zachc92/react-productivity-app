@@ -2,14 +2,11 @@ import React from 'react';
 import '../styles/Timer.scss';
 
 const Timer = (props) => {
-   let mind = props.timer % (60 * 60);
-   let minutes = Math.floor(mind / 60);
+   let min = props.timer % (60 * 60);
+   let minutes = Math.floor(min / 60);
 
-   let secd = mind % 60;
-   var seconds = Math.ceil(secd);
-
-   console.log(minutes, seconds)
-
+   let sec = min % 60;
+   let seconds = Math.ceil(sec);
 
     return (
        <div className="timer-container">
