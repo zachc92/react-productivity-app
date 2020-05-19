@@ -12,7 +12,7 @@ class App extends React.Component {
             id: ''
         },
         completed: 0,
-        timer: 10,  // time in seconds
+        timer: 1500,  // time in seconds
         intervalId: ''
     }
 
@@ -68,7 +68,8 @@ class App extends React.Component {
     }
 
     onReset = () => {
-        this.setState(({ timer: 5 }))
+        clearInterval(this.state.intervalId);
+        this.setState(({ timer: 1500, intervalId: '' }))
     }
 
     beginTimer = () => {
